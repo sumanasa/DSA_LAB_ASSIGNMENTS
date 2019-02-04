@@ -1,0 +1,55 @@
+#include<stdio.h>
+int main()
+{
+    int n,flag=1;
+    printf("Enter n value : ");
+    scanf("%d",&n);
+    int M[n][n];
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            int b;
+            scanf("%d",&b);
+            M[i][j]=b;
+        }
+    }    
+    for(int i=0;i<n;i++)
+    {
+        int tempR=0,tempC=0;
+        int min=M[i][0];
+        for(int j=1;j<n;j++)
+        {
+            if(min>M[i][j])
+            {
+                min=M[i][j];
+                tempR=j;
+            }
+        }
+        for(int j=0;j<n;j++)
+        {
+        int max=M[0][tempR];
+        if(min==M[i][j])
+        {
+            for(int c=1;c<n;c++)
+            {
+                if(max<M[c][tempR])
+                {
+                    max=M[c][tempR];
+                    tempC=c;
+                }
+            }
+        }
+        if(max==min&&min==M[i][j])
+        {
+            printf("%d\t",M[tempC][tempR]);
+            flag=0;
+        }
+        }
+    }
+    if(flag>0)
+    {
+        printf("No saddle point exist");
+    }
+    return 0;
+}
