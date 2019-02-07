@@ -1,55 +1,61 @@
-#include<stdio.h>
-int main()
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+int n;
+char t[10],p[10];
+int visited[10];
+int order[10],k=0;
+int check()
 {
-    int n,flag=1;
-    printf("Enter n value : ");
+    int cnt=0;
+    for(int i=0;i<strlen(p);i++)
+    {
+        char variable = p[i];
+        for(int j=0;j<n;j++)
+        {
+            if(t[j]==variable && visited[j]!=1)
+            {
+                visited[j]=1;
+                order[k++] = j;
+                cnt++;
+                break;
+            }
+        }
+    }
+    if(cnt==strlen(p))
+    {
+        return 1;
+    }
+    else
+        return 0;
+}
+bool check_order(){
+    for(int i=k-1;i>=1;i--){
+        if(order[i]<order[i-1])
+            return false;
+    }
+        return true;
+}
+int main(){
+    scanf("%s",&t);
+    scanf("%s",&p);
     scanf("%d",&n);
-    int M[n][n];
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            int b;
-            scanf("%d",&b);
-            M[i][j]=b;
-        }
-    }    
-    for(int i=0;i<n;i++)
-    {
-        int tempR=0,tempC=0;
-        int min=M[i][0];
-        for(int j=1;j<n;j++)
-        {
-            if(min>M[i][j])
-            {
-                min=M[i][j];
-                tempR=j;
-            }
-        }
-        for(int j=0;j<n;j++)
-        {
-        int max=M[0][tempR];
-        if(min==M[i][j])
-        {
-            for(int c=1;c<n;c++)
-            {
-                if(max<M[c][tempR])
-                {
-                    max=M[c][tempR];
-                    tempC=c;
-                }
-            }
-        }
-        if(max==min&&min==M[i][j])
-        {
-            printf("%d\t",M[tempC][tempR]);
-            flag=0;
-        }
-        }
+    int a[n];
+    int cnt=0;
+    for(int i = 0;i < n;i++){
+        scanf("%d",&a[i]);
     }
-    if(flag>0)
-    {
-        printf("No saddle point exist");
+    for(int i = 0;i<n;i++){
+        memset(visited,0,sizeof(visited));
+        memset(order,0,sizeof(order));
+        int position = a[i];
+        t[position-1] = ' ';
+        if(check()!=1 || !check_order()){
+            break;
+        }
+            cnt++;
     }
-    return 0;
+    printf("%d",cnt);
 }
