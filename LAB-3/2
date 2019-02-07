@@ -1,0 +1,33 @@
+#include<stdio.h>
+#include<string.h>
+char string[100];
+int length;
+int f,r,k;
+char* operate(int start, int end, int shift_time)
+{
+    for(int c=0;c<shift_time;c++)
+    {
+        char temp = string[end-1];
+        for(int i=end-2;i>=start-1;i--)
+        {
+            string[i+1]=string[i];
+        }
+        string[start-1]=temp;
+    }
+    return string;
+}
+
+int main()
+{
+    int no_of_queries;
+    printf("Enter the string : ");
+    scanf("%s",&string);
+    length = strlen(string);
+    scanf("%d",&no_of_queries);
+    for(int i=0;i<no_of_queries;i++){
+        scanf("%d %d %d",&f,&r,&k);
+        operate(f,r,k);
+    }
+    printf("%s",string);
+    return 0;
+}
