@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int visited[100][100];
+int n;
+int mat[100][100];
+int colour[100];
+int k = 0;
+void search_surround(int pos_i,int pos_j)
+{
+    for(int i=-1;i<=1;i++)
+    {
+        for(int j=-1;j<=1;j++)
+        {
+            if(mat[pos_i+i][pos_j+j]==1 && visited[pos_i+i][pos_j+j]==0)
+            {
+                visited[pos_i+i][pos_j+j]=1;
+                colour[k] = colour[k] + 1;
+                search_surround(pos_i+i,pos_j+j);
+            }
+        }
+    }
+}
+int main(){
+    memset(mat,0,sizeof(mat));
+    printf("Enter the Value of n : ");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n;j++)
+            scanf("%d",&mat[i+1][j+1]);
+    memset(visited,0,sizeof(visited));
+    memset(colour,0,sizeof(colour));
+    for(int i = 0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(mat[i+1][j+1]==1 && visited[i+1][j+1]==0){
+                visited[i+1][j+1]=1;
+                colour[k]=1;
+                search_surround(i+1,j+1);
+                k++;
+            }
+        }
+    }
+    int max = colour[0];
+    for(int a=0;a<k;a++)
+    {
+        if(colour[a]>max)
+            max = colour[a];
+    }
+    printf("\n%d",max);
+    return 0;
+}
