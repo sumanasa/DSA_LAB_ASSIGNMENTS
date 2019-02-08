@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+    printf("Enter the sorted list : ");
+    int a[1000];
+    int x,i=0;
+    char c;
+    while(scanf("%d",&x)){
+        a[i++]=x;
+        scanf("%c",&c);
+        if(c!=' ')
+            break;
+    }
+    for(int n=0;n<i;)
+    {
+        if(a[n]==a[n+1])
+            n=n+2;
+        else{
+            printf("%d occurs only once",a[n]);
+            break;
+        }
+    }
+}
