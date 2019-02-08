@@ -1,1 +1,24 @@
-.
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+int main()
+{
+    int n,k;
+    printf("Enter n & m : ");
+    scanf("%d %d",&n,&k);
+    for(int v=1; v<=n; v++)
+    {
+        int p = 0,sum = 0;
+        while (pow(2,p) <= v) {
+            int a = v/(pow(2,p));
+            sum += a;
+            p++;
+        }
+        if(sum == n)
+        {
+            printf("%d",v);
+            break;
+        }
+    }
+}
