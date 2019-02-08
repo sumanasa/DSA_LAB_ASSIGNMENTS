@@ -1,0 +1,35 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+int binary_search(int* array,int l,int h,int x)
+{
+    int mid = l + (h-l)/2;
+    if(h>=l){
+        if(array[mid]==x)
+            return mid;
+        else if(array[mid]>x)
+            return binary_search(array,l,mid-1,x);
+        else
+            return binary_search(array,mid+1,h,x);
+    }
+    else
+        return -1;
+}
+
+int main()
+{
+    int n,a[1000],k;
+    memset(a,0,sizeof(a));
+    printf("Enter the value of n : ");
+    scanf("%d",&n);
+    printf("Enter the list \n");
+    for(int i=0;i<n;i++)
+        scanf("%d",&a[i]);
+    printf("Enter the value to find : ");
+    scanf("%d",&k);
+    int position = binary_search(a,0,n-1,k);
+    if(position==-1)
+        printf("Not exists");
+    else
+        printf("position : %d",position+1);
+}
