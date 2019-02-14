@@ -1,0 +1,58 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+void swap(int* x,int* y)
+{
+    int temp = *x;
+    *x = *y;
+    *y = temp;
+}
+
+int binary_search(int* array,int l,int h,int x)
+{
+    int mid = l + (h-l)/2;
+    if(l<=h)
+    {
+        if(array[mid]==x)
+            return mid;
+        else if(array[mid] > x)
+            return binary_search(array,l,mid-1,x);
+        else
+            return binary_search(array,mid+1,h,x);
+    }
+    else
+        return -1;  
+}
+int main()
+{
+    int n,k,arr[100000],index_arr[100000];
+    memset(arr,0,sizeof(arr));
+    memset(index_arr,0,sizeof(index_arr));
+    printf("Enter the value of n : ");
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&arr[i]);
+    }
+    for(int i=0;i<n;i++)
+    {
+        index_arr[i]=i;
+    }
+    printf("Enter the value of k : ");
+    scanf("%d",&k);
+    for(int i = 0;i < n-1; i++)
+    {
+        if(arr[i]>arr[i+1])
+        {
+            swap(arr+i,arr+i+1);
+            swap(index_arr+i,index_arr+i+1);
+            break;
+        }
+    }
+    int result = binary_search(arr,0,n-1,k);
+    int answer = index_arr[result];
+    if(result==-1)
+        printf("-1");
+    else
+        printf("%d",answer+1);
+}
