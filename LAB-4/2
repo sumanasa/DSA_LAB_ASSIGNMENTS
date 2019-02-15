@@ -10,8 +10,8 @@ int main()
     for(int v=1; v<=n; v++)
     {
         int p = 0,sum = 0;
-        while (pow(2,p) <= v) {
-            int a = v/(pow(2,p));
+        while (pow(k,p) <= v) {
+            int a = v/(pow(k,p));
             sum += a;
             p++;
         }
