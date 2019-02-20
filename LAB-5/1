@@ -1,0 +1,143 @@
+#include<stdio.h>
+int check(int M[],int m,int p,int q)
+{
+	int d=0;
+	for(int i=0;i<m;i++)
+	{
+		int z=0;
+		for(int j=p;j<=q;j++)
+		{
+			if(M[i]==j)
+			{
+				z++;
+				d++;
+				break;
+			}
+		}
+		if(z!=0)
+		{
+			break;
+		}
+	}
+	if(d!=0)
+	{
+		return  0;
+	}
+	else
+	{
+		return 1;
+	}
+}
+void clear(char X[],int x)
+{
+	for(int i=0;i<x;i++)
+	{
+		X[i]='\0';
+	}
+	X[0]='-';
+	X[1]='1';
+}
+int main()
+{
+	int n;
+	scanf("%d",&n);
+	char O[n][50];
+	for(int i=0;i<n;i++)
+	{
+		int o=0;
+		int t;
+		scanf("%d",&t);
+		int a[t],b[t];
+		for(int j=0;j<t;j++)
+		{
+			scanf("%d%d",&a[j],&b[j]);
+		}
+		int M[1000],C[1000],m=0,c=0;
+		for(int j=0;j<t;j++)
+		{
+			if(m==0 && c==0)
+			{
+				for(int k=a[j];k<=b[j];k++)
+				{
+					M[m]=k;
+					m++;
+				}
+				O[i][o]='I';
+				O[i][o+1]='M';
+				o=o+2;
+			}
+			else
+			{
+				int p=check(M,m,a[j],b[j]),q=check(C,c,a[j],b[j]);
+				if(p==1&&q==1)
+				{
+					if(m<=c)
+					{
+						for(int k=a[j];k<=b[j];k++)
+						{
+							M[m]=k;
+							m++;
+						}
+						O[i][o]=',';
+						o++;
+						O[i][o]='I';
+						O[i][o+1]='M';
+						o=o+2;
+					}
+					else
+					{
+						for(int k=a[j];k<=b[j];k++)
+						{
+							C[c]=k;
+							c++;
+						}
+						O[i][o]=',';
+						o++;
+						O[i][o]='C';
+						O[i][o+1]='A';
+						o=o+2;
+					}
+				}
+				else if(p==1)
+				{
+					for(int k=a[j];k<=b[j];k++)
+					{
+						M[m]=k;
+						m++;
+					}
+					O[i][o]=',';
+					o++;
+					O[i][o]='I';
+					O[i][o+1]='M';
+					o=o+2;
+				}
+				else  if(q==1)
+				{
+					for(int k=a[j];k<=b[j];k++)
+					{
+						C[c]=k;
+						c++;
+					}
+					O[i][o]=',';
+					o++;
+					O[i][o]='C';
+					O[i][o+1]='A';
+					o=o+2;
+				}
+				
+				else if(p==0 && q==0)
+				{
+					//l++;
+					clear(O[i],o);
+					break;
+				}
+				O[i][o]='\0';
+			}
+		}
+	}
+	for(int i=0;i<n;i++)
+	{
+		printf("%s\n",O[i]);
+	}
+	return 0;
+}
