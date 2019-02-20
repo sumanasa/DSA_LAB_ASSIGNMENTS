@@ -1,0 +1,107 @@
+
+#include<stdio.h>
+#include<string.h>
+
+void swap(int *a,int *b)
+{
+    int tmp=*a;
+    *a=*b;
+    *b=tmp;
+}
+
+void bubblesort(int arr[],int n)
+{
+    for(int i=0;i<n-1;i++)
+        for(int j=0;j<n-i-1;j++)
+            if(arr[j]>arr[j+1])
+                swap(&arr[j],&arr[j+1]);
+}
+
+int main()
+{
+  int a,b,c,m;
+  scanf("%d%d%d%d",&a,&b,&c,&m);
+  int d;
+  char s[4];
+  int ps[100]={},xb[100]={},p=0,x=0;
+  for(int i=0;i<m;i++)
+  {
+    scanf("%d",&d);
+    scanf("%s",s);
+    if(strcmp(s,"PS4")==0)
+        ps[p++]=d;
+    else if(strcmp(s,"XBOX")==0)
+        xb[x++]=d;
+  }
+  bubblesort(ps,p);
+  bubblesort(xb,x);
+  int num=0,val=0;
+  if(a>=p)
+  {
+      num+=p;
+      for(int i=0;i<p;i++)
+        {
+            val+=ps[i];
+            ps[i]=-1;
+        }
+  }
+ else if(a<p)
+  {
+    num+=a;
+    for(int i=0;i<a;i++)
+    {
+        val+=ps[i];
+        ps[i]=-1;
+    }
+  }
+  
+  if(b>=x)
+  {
+    num+=x;
+    for(int i=0;i<x;i++)
+    {
+        val+=xb[i];
+        xb[i]=-1;
+    }
+  }
+  else if(b<x)
+  {
+    num+=b;
+    for(int i=0;i<b;i++)
+    {
+        val+=xb[i];
+        xb[i]=-1;
+    }
+  }
+  int cr[100]={},l=0;
+  for(int i=0;i<p;i++)
+  {
+    if(ps[i]==-1)
+        continue;
+    else
+        cr[l++]=ps[i];
+  }
+   for(int i=0;i<x;i++)
+  {
+    if(xb[i]==-1)
+        continue;
+    else
+        cr[l++]=xb[i];
+  }
+  bubblesort(cr,l);
+  
+  if(c>=l)
+  {
+    num+=l;
+    for(int i=0;i<l;i++)
+        val+=cr[i];
+  }
+  else if(c<l)
+  {
+    num+=c;
+    for(int i=0;i<c;i++)
+        val+=cr[i];
+  }
+  
+  printf("%d %d",num,val);
+}
