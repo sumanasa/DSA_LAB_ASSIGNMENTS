@@ -1,0 +1,67 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+char s[100];
+int check_order(char str[],int len)
+{
+    int k;
+    len%2==0 ? (k=(len/2)) : (k=(len/2));
+    for(int i=0;i<k-1;i++)
+    {
+        for(int j=i+1;j<k;j++)
+        {
+            if(str[i]>str[j])
+                return 0;
+        }
+    }
+    return 1;
+}
+int check_palindrome(char str[],int len)
+{
+    char temp[100];
+    for(int i=len-1;i>=0;i--)
+        temp[len-i-1] = str[i];
+    temp[len]='\0';
+    if(strcmp(temp,str)==0) 
+        return 1;
+    else        
+        return 0;
+}
+
+int main()
+{
+    char test_str[100],min[100]={'z'};
+    int l=0,flag=0;
+    printf("Enter the String : ");
+    scanf("%s",s);
+    int n = strlen(s);
+    int str_cnt;
+    for(str_cnt=n;str_cnt>=3;str_cnt--)
+    {
+        for(int i=0;i<(n-str_cnt+1);i++)
+        {
+            l=0;
+            for(int j=0;j<str_cnt;j++)
+            {
+                test_str[l++]=s[i+j];
+            }
+            test_str[l]='\0';
+            if(check_palindrome(test_str,l)==1 && check_order(test_str,l)==1)
+            {
+                if(strcmp(test_str,min)<0)
+                {
+                    flag=1;
+                    strcpy(min,test_str);
+                }
+            }
+        }
+        if(flag==1)
+            break;
+    }
+    
+    if(flag==1)
+        printf("%s",min);
+    else
+        printf("-1");
+}
