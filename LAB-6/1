@@ -1,32 +1,99 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include<string.h>
+int n,a[100],A[100][100];
+int not_empty[100],visited[100],color[100],co_cnt=1;
 void swap(int* x,int* y)
 {
     int temp = *x;
     *x = *y;
     *y = temp;
 }
-int main()
-{
-    int n,a[100],A[100][100];
-    memset(a,0,sizeof(a));
-    printf("Enter the value of n : ");
-    scanf("%d",&n);
-    for(int i=0;i<n;i++)
-        scanf("%d",&a[i]);
-    printf("Enter nxn array \n");
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++)
+
+void dfs(int x){
+    visited[x]=1;
+    color[x]=co_cnt;
+    for(int i=1;i<=n;i++)
+    {
+        if(A[x][i]==1 && visited[i]==0)
         {
-            scanf("%d",&A[i][j]);
-            if(A[i][j]==1)
-            {
-                swap(a+i,a+j);
-            }
+            dfs(i);
         }
     }
-    for(int i=0;i<n;i++)
-        printf("%d ",a[i]);
 }
 
+bubblesort(int arr[],int x){
+    for(int i =0;i<x-1;i++)
+    {
+        for(int j=0;j<x-i-1;j++)
+        {
+            if(arr[j+1]>arr[j+2])
+                swap(arr+j+1,arr+j+2);
+        }
+    }
+}
+int main()
+{
+    int temp[100],temp1[100];
+    memset(temp,0,sizeof(temp));
+    memset(temp1,0,sizeof(temp1));
+    memset(a,0,sizeof(a));
+    memset(A,0,sizeof(A));
+    memset(visited,0,sizeof(visited));
+    printf("Enter the value of n : ");
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++)
+        scanf("%d",&a[i]);
+    printf("\nEnter nxn array \n");
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=n;j++){
+            scanf("%d",&A[i][j]);
+        }
+    }
+    
+    for(int i=1;i<=n;i++)
+    {    
+        temp[i]=a[i];
+        temp1[i]=a[i];
+    }
+    bubblesort(temp,n);
+    
+    for(int i=1;i<=n;i++)
+    {
+        if(visited[i]==0)
+        {
+        dfs(i);
+        co_cnt++;
+        }
+    }
+    for(int i=1;i<=n;i++)
+    {
+        printf("%d ",color[i]);
+    }
+    printf("\n");
+    memset(visited,0,sizeof(visited));
+    for(int i=n;i>=1;i--)
+    {
+        int num = temp[i];
+        int t;
+        for( t=1;t<=n;t++){
+            if(temp1[t]==num)
+                break;
+        }
+        for(int j=n;j>=1;j--)
+        {
+            if(color[t]==color[j] && visited[j]==0)
+            {
+//                printf("num = %d posi = %d\n",num,j);
+                a[j]=num;
+                visited[j]=1;
+                break;
+            }
+  
+        }
+    }
+    for(int i=1;i<=n;i++)
+    {
+        printf("%d ",a[i]);
+    }
+}
