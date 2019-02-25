@@ -31,7 +31,7 @@ int check_palindrome(char str[],int len)
 
 int main()
 {
-    char test_str[100],min[100]={'z'};
+    char test_str[100],min[100]={'Z'};
     int l=0,flag=0;
     printf("Enter the String : ");
     scanf("%s",s);
